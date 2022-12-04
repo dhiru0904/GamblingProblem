@@ -132,6 +132,43 @@ public class GamblingSimulation {
         System.out.println("The gambler luckiest day is "+ luckiest + " day, and won amount is "+luckyDayAmt);
         System.out.println("The gambler unluckiest day is "+ unluckiest + " day, and won amount is "+unluckyDayAmt);
     }
+    public static void playingOrStopGambling()/*playing next month or stop gambling*/
+    {
+        for (int day = 1; day < dayInMonth; day++) {
+            int dailyWonLostAmt = 0;
+            int betsPlayed = 0;
+            int totalWonLostAmt = 0;
+            while ((dailyWonLostAmt < 50) && (dailyWonLostAmt > -50) && (betsPlayed < 100)) {
+                Random random = new Random();
+                betsPlayed++;
+                int random_value = random.nextInt(2);
+                if (random_value == 0) {
+                    dailyWonLostAmt = dailyWonLostAmt - bet;
+                }
+                else
+                {
+                    dailyWonLostAmt = dailyWonLostAmt + bet;
+                }
+            }
+            totalWonLostAmt += dailyWonLostAmt;
+        }
+        if (totalWinAmount>0){
+            Random random = new Random();
+            int random_no=random.nextInt(2);
+            if (random_no==0)
+            {
+                System.out.println("The gambler won "+ totalWinAmount+ " last month and gambler continue playing");
+            }
+            else
+            {
+                System.out.println("The gambler won $"+ totalWinAmount+ " last month and gambler stop gambling");
+            }
+        }
+        else if (totalWinAmount<=0){
+            System.out.println("The gambler lost in last month " + Math.abs(totalWinAmount)+
+                    " then he should stop playing now.");
+        }
+    }
     public static void main(String[] args) {
         System.out.println("welcome to Gambling Simulation Problem");
         System.out.println("Gambler every day stake is " + stake + "and bet is " + bet);
@@ -140,10 +177,7 @@ public class GamblingSimulation {
         winLostAmount();
         monthDaysWonLost();
         luckiestUnluckiestDay();
+        playingOrStopGambling();
     }
 }
 
-    my luckiest day
-        where I won maximum
-        and my unluckiest day
-        where I lost maximum
