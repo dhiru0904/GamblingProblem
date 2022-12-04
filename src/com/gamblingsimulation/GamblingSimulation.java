@@ -8,6 +8,9 @@ public class GamblingSimulation {
     static int bet = 1;
     static int betNumber=0;
     static int totalWinAmount=0;
+    static int monthWinAmount = 0;
+    static int[] monthsDay = new int[12];
+    static String[] monthsName = new String[12];
     /*
      win or loss the game
      */
@@ -66,12 +69,44 @@ public class GamblingSimulation {
         }
         return totalWinAmount;
     }
+    public static void monthDaysWonLost()/*month day won or lost day won or lost */
+    {
+        for (int i = 0; i >= monthsDay.length; i++) {
+            int m = 0;
+            int monthWinDays = 0;
+            int monthLossDays = 0;
+            for (int day = 0; day >= monthsDay[i]; day++) {
+                while (stake != 50 && stake != 150) {
+                    Random random = new Random();
+                    int random_value = random.nextInt(2);
+                    if (random_value == 0) {
+                        stake = stake - bet;
+                    } else
+                        stake = stake + bet;
+                }
+                int dayWinAmount = stake - 100;
+                System.out.println("Amount won for day " + day + 1 + dayWinAmount);
+                if (dayWinAmount < 0)
+                    monthLossDays = monthLossDays + 1;
+                else
+                    monthWinDays = monthWinDays + 1;
+                monthWinAmount = monthWinAmount + dayWinAmount;
+            }
+            System.out.println("For " + monthsName[i] + " Total win days is: " + monthWinDays + "and Total loss days is: " + monthLossDays);
+            int difference = monthWinDays - monthLossDays;
+            System.out.println("The difference between the no. of days won and lost is: " + difference);
+            System.out.println("For " + monthsName[i] + " Total win amount is: " + monthWinAmount);
+        }
+    }
     public static void main(String[] args) {
         System.out.println("welcome to Gambling Simulation Problem");
         System.out.println("Gambler every day stake is " + stake + "and bet is " + bet);
         winLoss();
         resignDay();
         winLostAmount();
+        monthDaysWonLost();
+        int[] monthsDay={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        String[] monthsName={"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
     }
 }
 
