@@ -9,8 +9,11 @@ public class GamblingSimulation {
     static int betNumber=0;
     static int totalWinAmount=0;
     static int monthWinAmount = 0;
-    static int[] monthsDay = new int[12];
-    static String[] monthsName = new String[12];
+    static int[] monthsDay = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    static String[] monthsName = {"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    static int dayInMonth=31;
+    static int luckiest=0;
+    static int unluckiest=0;
     /*
      win or loss the game
      */
@@ -98,6 +101,37 @@ public class GamblingSimulation {
             System.out.println("For " + monthsName[i] + " Total win amount is: " + monthWinAmount);
         }
     }
+    public static void luckiestUnluckiestDay() /*luckiest or unluckiest day*/
+    {
+        int luckyDayAmt=0;
+        int unluckyDayAmt=0;
+        for (int day = 1; day < dayInMonth; day++) {
+            int dailyWonLostAmt=0;
+            int betsPlayed = 0;
+            while ((dailyWonLostAmt < 50) && (dailyWonLostAmt >-50) && (betsPlayed < 100)) {
+                Random random = new Random();
+                betsPlayed++;
+                int random_value = random.nextInt(2);
+                if (random_value == 0) {
+                    dailyWonLostAmt = dailyWonLostAmt - bet;
+                }
+                else {
+                    dailyWonLostAmt = dailyWonLostAmt + bet;
+                }
+            }
+            if (luckyDayAmt < dailyWonLostAmt) {
+                luckyDayAmt=dailyWonLostAmt;
+                luckiest=day;
+            }
+            if (unluckyDayAmt > dailyWonLostAmt)
+            {
+                unluckyDayAmt=dailyWonLostAmt;
+                unluckiest=day;
+            }
+        }
+        System.out.println("The gambler luckiest day is "+ luckiest + " day, and won amount is "+luckyDayAmt);
+        System.out.println("The gambler unluckiest day is "+ unluckiest + " day, and won amount is "+unluckyDayAmt);
+    }
     public static void main(String[] args) {
         System.out.println("welcome to Gambling Simulation Problem");
         System.out.println("Gambler every day stake is " + stake + "and bet is " + bet);
@@ -105,8 +139,11 @@ public class GamblingSimulation {
         resignDay();
         winLostAmount();
         monthDaysWonLost();
-        int[] monthsDay={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        String[] monthsName={"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        luckiestUnluckiestDay();
     }
 }
 
+    my luckiest day
+        where I won maximum
+        and my unluckiest day
+        where I lost maximum
